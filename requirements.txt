@@ -1,0 +1,15 @@
+torch
+torchvision
+torchlibrosa
+wandb
+matplotlib
+scipy
+librosa
+soundfile
+omegaconf
+pytorch_lightning
+torchaudio
+transformers
+pesq
+pystoi
+ptflops

@@ -1,0 +1,66 @@
+exp:
+  name: "ffc-se"
+  notes: "ffc-se"
+
+training:
+  trainer: audio2audio_infer
+  device: cuda
+
+data:
+  name: inference_1ch
+  loader: infinite
+  root_dir: null
+  sampling_rate: 16000
+  num_workers: 8
+
+dataset:
+  inference_1ch:
+    val:
+      path_prefix: ${data.root_dir}
+      clean_wavs_dir: null
+      noisy_wavs_dir: "noisy_testset_wav"
+      sampling_rate: ${data.sampling_rate}
+      segment_size: 32768
+      split: False
+      device: ${training.device}
+
+loader:
+  infinite:
+    val:
+      batch_size: 1
+      num_workers: 1
+      shuffle: False
+      device: ${training.device}
+      persistent_workers: True
+      prefetch_factor: 1
+      pin_memory: False
+      infinite: False
+
+gen:
+  model: ffc_se
+
+gennets:
+  ffc_se:
+    model_params:
+      mode: "unet"
+      special_estimate: null
+      out_channels: 32
+      scale_factor: 3
+      block_depth: [4, 4, 4, 4]
+      use_connection: "concat"
+      fu_kernel: 1
+      ffc_conv_kernel: 3
+      ffc_global_ratio_in: [0.75, 0.5, 0.25, 0.0]
+      ffc_global_ratio_out: [0.75, 0.5, 0.25, 0.0]
+      fft_norm: "ortho"
+      use_only_freq: True
+      stride: [2, 2]
+      padding_type: "reflect"
+      bias: False
+    stft_params:
+      n_fft: 1024
+      hop_length: 256
+      win_length: 1024
+      return_complex: False
+      center: True
+      window: "hann_window"

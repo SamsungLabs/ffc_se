@@ -50,6 +50,9 @@ If you wand to compute WV-MOS score for unlabeled data (i.e. without clean refer
 If you launch full inference with metric computation, inference on voicebank dataset should take approximately 30 min, on dns-blind ~ 1h 50 min.
 
 ## Checkpoints 
+
+You can find and download checkpoints in Releases tab.
+
 `checkpoints` folder contents are as follows:
 ```
 checkpoints/
